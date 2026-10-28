@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Software Developer portfolio — .NET, C#, JavaScript, Vue.js and fintech application development." />
+  <title>Aditya Thombre | Software Developer</title>
+  <style>
+    :root {
+      --bg: #0b1020;
+      --surface: #121a2d;
+      --surface-2: #17223a;
+      --text: #edf2ff;
+      --muted: #a5b1ca;
+      --accent: #69e0c2;
+      --accent-2: #7da7ff;
+      --border: rgba(255,255,255,.1);
+      --shadow: 0 18px 50px rgba(0,0,0,.25);
+    }
+    [data-theme="light"] {
+      --bg: #f4f7fb;
+      --surface: #ffffff;
+      --surface-2: #e9eff7;
+      --text: #182235;
+      --muted: #5d6b82;
+      --accent: #087f6b;
+      --accent-2: #315fc4;
+      --border: rgba(24,34,53,.14);
+      --shadow: 0 18px 50px rgba(25,45,75,.10);
+    }
+    [data-theme="light"] header { background: rgba(244,247,251,.88); }
+    [data-theme="light"] .nav-links { background: var(--bg); }
+    [data-theme="light"] .tag { color: #34445d; }
+    [data-theme="light"] .btn-secondary { background: rgba(24,34,53,.04); }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+	section[id] { scroll-margin-top: 70px; }
+    body {
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, Segoe UI, sans-serif;
+      background: radial-gradient(circle at 85% 5%, rgba(67,112,196,.18), transparent 28%), var(--bg);
+      color: var(--text); line-height: 1.65;
+    }
+    a { color: inherit; text-decoration: none; }
+    .container { border-bottom: 1px solid var(--border); width: min(1100px, 90%); margin: auto; padding-bottom: 20px; }
+    header {
+      position: sticky; top: 0; z-index: 10; backdrop-filter: blur(14px);
+      background: rgba(11,16,32,.82); border-bottom: 1px solid var(--border);
+    }
+    nav { min-height: 72px; display: flex; align-items: center; justify-content: space-between; gap: 20px; }
+    .logo { font-size: 1.12rem; font-weight: 800; letter-spacing: -.04em; }
+    .logo span { color: var(--accent); }
+    .nav-links { display: flex; align-items: center; gap: 26px; list-style: none; }
+    .nav-links a { color: var(--muted); font-size: .92rem; transition: color .2s; }
+    .nav-links a:hover { color: var(--accent); }
+    .menu-btn { display: none; background: none; color: var(--text); border: 1px solid var(--border); padding: 8px 11px; border-radius: 9px; font-size: 1.1rem; }
+    .theme-btn { background: var(--surface); color: var(--text); border: 1px solid var(--border); padding: 9px 13px; border-radius: 9px; font: inherit; font-size: .9rem; font-weight: 700; cursor: pointer; white-space: nowrap; transition: transform .2s, background .2s; }
+    .theme-btn:hover { transform: translateY(-2px); }
+    .hero { border-bottom: 1px solid var(--border); min-height: 560px; display: grid; grid-template-columns: 1.35fr .8fr; align-items: center; gap: 55px;}
+    .eyebrow { color: var(--accent); text-transform: uppercase; letter-spacing: .16em; font-size: .78rem; font-weight: 750;}
+    h1 { font-size: clamp(2.7rem, 6vw, 5rem); line-height: 1.06; letter-spacing: -.06em; margin: 18px 0; }
+    h1 span { color: var(--accent); }
+    .hero-copy { max-width: 650px; color: var(--muted); font-size: 1.08rem; }
+    .hero-actions { display: flex; flex-wrap: wrap; gap: 13px; margin-top: 30px; }
+    .btn { display: inline-flex; align-items: center; justify-content: center; padding: 12px 19px; border-radius: 10px; font-weight: 700; border: 1px solid var(--border); transition: transform .2s, background .2s; }
+    .btn:hover { transform: translateY(-3px); }
+    .btn-primary { background: var(--accent); color: #071b19; border-color: var(--accent); }
+    .btn-secondary { background: rgba(255,255,255,.04); }
+    .profile-card { background: linear-gradient(145deg, rgba(105,224,194,.12), rgba(125,167,255,.1)); border: 1px solid var(--border); border-radius: 24px; padding: 28px; box-shadow: var(--shadow); }
+	.profile-header {
+		display: flex;
+		align-items: center;
+		gap: 15px;
+	}
+	.profile-header h2 {
+		margin: 0;
+	}
+	
+	.profile-info h2 {
+		margin: 0;
+		line-height: 1.2;
+	}
+	.profile-info p {
+		margin: 2px 0 0;
+		line-height: 1.2;
+	}
+    .avatar { width: 100px; height: 100px; border-radius: 25px; display: grid; place-items: center; background: var(--surface-2); color: var(--accent); font-size: 2.5rem; font-weight: 800; margin-bottom: 15px; border: 1px solid var(--border); }
+    .profile-card h2 { font-size: 1.35rem; margin-bottom: 4px; }
+    .profile-card p { color: var(--muted); }
+    .profile-meta { border-top: 1px solid var(--border); margin-top: 10px; padding-top: 10px; display: grid; gap: 10px; color: var(--muted); font-size: .92rem; }
+    section { padding: 15px 0; }
+    .section-heading { margin-bottom: 32px; }
+    .section-heading h2 { font-size: clamp(1.8rem, 4vw, 2.5rem); letter-spacing: -.04em; margin-top: 0; }
+    .section-heading p { color: var(--muted); margin-top: 8px; max-width: 650px; }
+	.section-heading .eyebrow {margin-bottom: 0; line-height: 1;}
+    .about-grid { display: grid; grid-template-columns: 1.2fr .8fr; gap: 35px; }
+    .about-text { color: var(--muted); }
+    .about-text p + p { margin-top: 15px; }
+    .highlight-list { display: grid; gap: 12px; }
+    .highlight { padding: 15px 17px; background: var(--surface); border: 1px solid var(--border); border-radius: 12px; }
+    .highlight strong { display: block; color: var(--accent); font-size: 1.15rem; }
+    .highlight span { color: var(--muted); font-size: .9rem; }
+    .skills-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 15px; }
+    .skill-card, .project-card, .timeline-card, .contact-card { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 22px; }
+    .skill-card h3 { font-size: 1rem; margin-bottom: 12px; }
+    .tags { display: flex; flex-wrap: wrap; gap: 8px; }
+    .tag { color: #cbd6ec; background: var(--surface-2); border: 1px solid var(--border); padding: 5px 9px; border-radius: 7px; font-size: .8rem; }
+    .projects-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 18px; }
+    .project-card { display: flex; flex-direction: column; min-height: 260px; }
+    .project-number { color: var(--accent); font-size: .8rem; font-weight: 800; letter-spacing: .1em; }
+    .project-card h3 { margin: 12px 0 8px; font-size: 1.25rem; }
+    .project-card p, .4project-card li { color: var(--muted); font-size: .94rem; flex: 1; }
+    .project-card .tags { margin-top: 18px; }
+    .timeline { border-left: 1px solid rgba(105,224,194,.45); margin-left: 8px; padding-left: 26px; }
+    .timeline-card { position: relative; }
+    .timeline-card::before { content: ""; position: absolute; width: 11px; height: 11px; border-radius: 50%; background: var(--accent); left: -33px; top: 27px; box-shadow: 0 0 0 5px var(--bg); }
+    .timeline-card h3 { font-size: 1.15rem; }
+    .timeline-card .date { color: var(--accent); font-size: .88rem; margin: 3px 0 10px; }
+    .timeline-card p, .timeline-card li { color: var(--muted); font-size: .94rem; }
+    .timeline-card ul { padding-left: 20px; margin-top: 9px; }
+    .contact-grid { display: grid; grid-template-columns: .9fr 1.1fr; gap: 20px; }
+    .contact-card p { color: var(--muted); }
+    .contact-links { display: grid; gap: 13px; margin-top: 20px; }
+    .contact-links a { color: var(--accent); overflow-wrap: anywhere; }
+    .email-row { display: flex; align-items: center; flex-wrap: wrap; gap: 10px; }
+    .email-row a { color: var(--accent); overflow-wrap: anywhere; }
+    .copy-email-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    text-decoration: none;
+}
+    .copy-email-btn:hover { transform: translateY(-2px); border-color: var(--accent); }
+    .copy-email-btn svg { width: 15px; height: 15px; }
+    #copyEmailNote { color: var(--muted); font-size: .78rem; }
+    form { display: grid; gap: 13px; }
+    input, textarea { width: 100%; border: 1px solid var(--border); background: var(--bg); color: var(--text); border-radius: 9px; padding: 13px 14px; font: inherit; outline: none; }
+    input:focus, textarea:focus { border-color: var(--accent); }
+    textarea { min-height: 125px; resize: vertical; }
+    footer { border-top: 1px solid var(--border); padding: 24px 0; color: var(--muted); font-size: .88rem; text-align: center; }
+    .back-top { position: fixed; bottom: 22px; right: 22px; width: 43px; height: 43px; border: 0; border-radius: 12px; background: var(--accent); color: #071b19; font-size: 1.2rem; cursor: pointer; display: none; }
+    .back-top.show { display: block; }
+    @media (max-width: 800px) {
+      .hero, .about-grid, .contact-grid { grid-template-columns: 1fr; }
+      .hero { min-height: auto; padding: 70px 0; gap: 35px; }
+      .skills-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 600px) {
+      .menu-btn { display: block; }
+      nav.container { flex-wrap: wrap; }
+      .theme-btn { margin-left: auto; }
+      .nav-links { display: none; position: absolute; top: 72px; left: 0; right: 0; padding: 18px 5%; background: #10182a; border-bottom: 1px solid var(--border); flex-direction: column; align-items: flex-start; }
+      .nav-links.open { display: flex; }
+      .projects-grid, .skills-grid { grid-template-columns: 1fr; }
+      section { padding: 58px 0; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <nav class="container" style="padding: 0px;">
+      <a class="logo" href="#home">Software<span>Developer</span></a>
+      <button class="menu-btn" id="menuBtn" aria-label="Toggle navigation" aria-expanded="false">☰</button>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="#about">About</a></li>
+		<li><a href="#skills">Skills</a></li>
+		<li><a href="#experience">Experience</a></li>
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#contact">Contact</a></li>
+		<li><a href="#" id="themeBtn" aria-label="Switch to light theme">☀</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <section class="container hero" id="home">
+      <div>
+        <p class="eyebrow">Software Developer · Fintech</p>
+        <h1>Building reliable<br />solutions with <span>clean code.</span></h1>
+        <p class="hero-copy">I'm a software developer with 3.5+ years of experience building web applications and backend services. I work primarily with C#, ASP.NET Core, SQL Server and JavaScript, with a focus on practical, secure and maintainable solutions.</p>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="#projects">Explore my work</a>
+          <a class="btn btn-secondary" href="#contact">Get in touch</a>
+        </div>
+      </div>
+      <aside class="profile-card">
+		<div class="profile-header">
+			<div class="avatar">AT</div>
+			<div class="profile-info">
+				<h2 class="mb-0">Aditya Thombre</h2>
+				<p>Software Developer</p>
+			</div>
+		</div> 
+        <div class="profile-meta">
+          <span>⌖ Mumbai, India</span>
+          <span>⌘ .NET Core · Angular · C#  </span>
+          <span>✉ thombreadi@gmail.com</span>
+        </div>
+      </aside>
+    </section>
+
+    <section id="about">
+      <div class="container">
+        <div class="section-heading" style="margin-bottom:15px;"><p class="eyebrow">A little about me</p><h2>About me</h2></div>
+        <div class="about-grid">
+          <div class="about-text">
+            <p>I enjoy turning business requirements into dependable software. My experience includes developing and maintaining fintech applications, integrating third-party APIs, working with relational databases, and troubleshooting application issues across the stack.</p>
+			<p>Full Stack .NET Developer with 3.5+ years of experience building and deploying enterprise fintech applications using C#, ASP.NET Core/MVC, Angular, and RESTful APIs. Delivered end-to-end Loan Origination and Vendor Management systems integrating 6+ third-party verification and payment APIs (KYC, credit bureau, payment gateway). Experienced across the full SDLC Dev, UAT, and Production with a track record of writing maintainable, well-tested code and collaborating cross-functionally to translate business requirements into scalable technical solutions.</p>
+            <p>I value readable code, thoughtful problem-solving, collaboration and continuous learning. I'm interested in opportunities where I can contribute to useful products while growing as an engineer.</p>
+          </div>
+          <div class="highlight-list">
+            <div class="highlight"><strong>3.5+ years</strong><span>Professional development experience</span></div>
+            <div class="highlight"><strong>Fintech Sector</strong><span>Domain experience in lending workflows</span></div>
+            <div class="highlight"><strong>Full stack Developer</strong><span>Backend services, APIs and web interfaces</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="skills">
+      <div class="container">
+        <div class="section-heading"><p class="eyebrow">What I work with</p><h2>Technical skills</h2><p>A selection of technologies and tools I have used in development.</p></div>
+        <div class="skills-grid">
+          <article class="skill-card"><h3>Backend</h3><div class="tags"><span class="tag">C#</span><span class="tag">ASP.NET MVC</span><span class="tag">ASP.NET Core</span><span class="tag">.NET</span><span class="tag">Java</span><span class="tag">LINQ</span><span class="tag">REST APIs</span></div></article>
+          <article class="skill-card"><h3>Frontend</h3><div class="tags"><span class="tag">JavaScript</span><span class="tag">Angular</span><span class="tag">Vue.js</span><span class="tag">HTML5</span><span class="tag">CSS3</span><span class="tag">Bootstrap</span><span class="tag">jQuery</span></div></article>
+          <article class="skill-card"><h3>Database & tools</h3><div class="tags"><span class="tag">SQL Server</span><span class="tag">Entity Framework</span><span class="tag">Postman</span><span class="tag">Visual Studio</span><span class="tag">Git</span><span class="tag">Sourcetree</span><span class="tag">Jira</span></div></article>
+          <article class="skill-card"><h3>Concepts</h3><div class="tags"><span class="tag">OOP</span><span class="tag">Dependency Injection</span><span class="tag">JWT</span><span class="tag">API Integration</span><span class="tag">Debugging</span><span class="tag">Performance</span></div></article>
+        </div>
+      </div>
+    </section>
+
+	<section id="experience">
+      <div class="container">
+        <div class="section-heading"><p class="eyebrow">My journey</p><h2>Experience</h2></div>
+        <div class="timeline">
+          <article class="timeline-card">
+            <h3>Software Developer · Celusion Technologies</h3>
+            <p class="date">June 2023 – Present</p>
+            <p>Working on fintech and lending application development across backend and frontend components.</p>
+            <ul>
+              <li>Developed and maintained enterprise web applications using ASP.NET MVC/Core, Web Forms, Ajax, Angular, and Web API, supporting 1.9k+ active users and 60k+ customers across fintech loan processing platforms.</li>
+              <li>Built and maintained core modules for LOS (Loan Origination System) and VMS (Vendor Management System), reducing manual processing steps by 80% and improving loan-stage turnaround time.</li>
+              <li>Integrated 6+ third-party REST APIs (KYC verification, credit bureau checks, payment gateway, bank account verification) into production workflows, improving data-verification accuracy and reducing manual review time by 90%-95%.</li>
+			  <li>Designed and optimized SQL Server stored procedures and queries, improving report/query performance by 30%.</li>
+			  <li>Deployed and validated releases across Dev, UAT, and Production, maintaining 97-98% uptime and minimizing regression defects through rigorous pre-release testing.</li>
+			  <li>Collaborated with business analysts, QA, and product teams using Agile ceremonies to translate requirements into technical solutions, shipping feature releases.</li>
+			  <li>Managed version control and code reviews using Bitbucket/Sourcetree across a team of 4 developers.</li>
+            </ul>
+          </article>
+        </div>
+      </div>
+    </section>
+
+	
+    <section id="projects">
+      <div class="container">
+        <div class="section-heading"><p class="eyebrow">Selected work</p><h2>Projects</h2><p>Examples of application areas and responsibilities. Replace or expand these with your exact project details.</p></div>
+        <div class="projects-grid">
+          <article class="project-card">
+            <span class="project-number">PROJECT 01</span><h3>Home Loan Management System </h3>
+            <p>A lending application supporting loan application processing, borrower information, document collection and integrations with verification services.</p>
+			<p>End-to-end home loan platform covering customer onboarding through disbursement across 8 workflow stages (DDE, CAM, In-Principle Approval, and others).</p>
+			<p>Integrated verification APIs:</p>
+			<ul>
+				<li style="margin-left:18px;">KARZA (PAN/Aadhaar/DL/Voter ID) </li>
+				<li style="margin-left:18px;">Highmark (CIBIL score) </li>
+				<li style="margin-left:18px;">Experian (eligibility)</li>
+				<li style="margin-left:18px;">RazorPay (payments) </li>
+				<li style="margin-left:18px;">Pyramid/Ignosis (bank account verification).</li>
+			</ul>
+            <div class="tags"><span class="tag">ASP.NET Core</span><span class="tag">SQL Server</span><span class="tag">Entity Framework</span><span class="tag">REST APIs</span><span class="tag">JavaScript</span><span class="tag">Vue.js</span></div>
+          </article>
+          <article class="project-card">
+            <span class="project-number">PROJECT 02</span><h3>MSME Business Loan Management System </h3>
+			<p>Extended the loan-management platform to support MSME business loans across 11 workflow stages (QDE, DDE, CAM, In-Principle Approval, and others).</p>
+			<p>Reused and adapted the Home Loan Management architecture, reducing development time for a second product line.</p>
+			<p>Integrated verification APIs:</p>
+			<ul>
+				<li style="margin-left:18px;">Screenzza API (fraudulent-customer detection).</li>
+				<li style="margin-left:18px;">KARZA (PAN/Aadhaar/DL/Voter ID) </li>
+				<li style="margin-left:18px;">Highmark (CIBIL score) </li>
+				<li style="margin-left:18px;">Experian (eligibility)</li>
+				<li style="margin-left:18px;">RazorPay (payments) </li>
+				<li style="margin-left:18px;">Pyramid/Ignosis (bank account verification).</li>
+			</ul>
+			 <div class="tags"><span class="tag">ASP.NET Core</span><span class="tag">Entity Framework</span><span class="tag">REST APIs</span><span class="tag">Vue.js</span><span class="tag">JavaScript</span><span class="tag">SQL Server</span></div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact">
+      <div class="container" style="border: none;">
+        <div class="section-heading"><p class="eyebrow">Let's connect</p><h2>Contact me</h2><p>Have an opportunity or a project in mind? Feel free to reach out.</p></div>
+        <div class="contact-grid">
+          <div class="contact-card">
+            <h3>Get in touch</h3>
+            <p>I'm open to discussing software development opportunities and interesting projects.</p>
+            <div class="contact-links">
+              <div class="email-row">
+                <a href="mailto:thombreadi@gmail.com" id="contactEmail">thombreadi@gmail.com</a>                
+				<a href="javascript:void(0);" class="copy-email-btn" id="copyEmailBtn" aria-label="Copy email address">
+					<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+						 stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+						<rect x="8" y="8" width="13" height="13" rx="2"></rect>
+						<path d="M16 8V5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h3"></path>
+					</svg> <span style="padding-left:5px;"></span>
+				</a>
+                <span id="copyEmailNote" aria-live="polite"></span>
+              </div>
+              <a href="https://www.linkedin.com/in/aditya-thombre-developer/" target="_blank" rel="noreferrer">LinkedIn profile ↗</a>
+              <!--<a href="https://github.com/" target="_blank" rel="noreferrer">GitHub profile ↗</a>-->
+            </div>
+          </div>
+          <div class="contact-card">
+            <form id="contactForm">
+              <input id="senderName" type="text" placeholder="Your name" required />
+              <input id="senderEmail" type="email" placeholder="Your email" required />
+              <textarea id="senderMessage" placeholder="Your message" required></textarea>
+              <button class="btn btn-primary" type="submit">Send email</button>
+              <p id="formNote" aria-live="polite" style="font-size:.82rem;margin-top:3px;">This opens your email application with the message filled in.</p>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer><div class="container" style="padding:0px; border: none;">© <span id="year"></span> Aditya Thombre. Software Developer.</div></footer>
+  <button class="back-top" id="backTop" aria-label="Back to top">↑</button>
+
+  <script>
+    const themeBtn = document.getElementById('themeBtn');
+    const savedTheme = localStorage.getItem('portfolio-theme');
+    const initialTheme = savedTheme === 'light' ? 'light' : 'dark';
+
+    function applyTheme(theme) {
+      document.documentElement.setAttribute('data-theme', theme);
+      const isLight = theme === 'light';
+      themeBtn.textContent = isLight ? '☾' : '☼';
+      themeBtn.setAttribute('aria-label', isLight ? 'Switch to dark theme' : 'Switch to light theme');
+      localStorage.setItem('portfolio-theme', theme);
+    }
+
+    applyTheme(initialTheme);
+
+    themeBtn.addEventListener('click', () => {
+      const currentTheme = document.documentElement.getAttribute('data-theme') || 'dark';
+      applyTheme(currentTheme === 'dark' ? 'light' : 'dark');
+    });
+
+    const menuBtn = document.getElementById('menuBtn');
+    const navLinks = document.getElementById('navLinks');
+    menuBtn.addEventListener('click', () => {
+      const isOpen = navLinks.classList.toggle('open');
+      menuBtn.setAttribute('aria-expanded', String(isOpen));
+    });
+    navLinks.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        navLinks.classList.remove('open');
+        menuBtn.setAttribute('aria-expanded', 'false');
+      });
+    });
+
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    const copyEmailBtn = document.getElementById('copyEmailBtn');
+    copyEmailBtn.addEventListener('click', async () => {
+      const email = document.getElementById('contactEmail').textContent.trim();
+      const note = document.getElementById('copyEmailNote');
+      try {
+        await navigator.clipboard.writeText(email);
+        copyEmailBtn.querySelector('span').textContent = 'Copied!';
+        note.textContent = 'Email copied to clipboard.';
+      } catch (error) {
+        // Fallback for browsers that do not support the Clipboard API.
+        const tempInput = document.createElement('textarea');
+        tempInput.value = email;
+        tempInput.style.position = 'fixed';
+        tempInput.style.opacity = '0';
+        document.body.appendChild(tempInput);
+        tempInput.select();
+        const copied = document.execCommand('copy');
+        tempInput.remove();
+        copyEmailBtn.querySelector('span').textContent = copied ? 'Copied!' : '';
+        note.textContent = copied ? 'Email copied to clipboard.' : 'Unable to copy. Please copy the email manually.';
+      }
+      window.setTimeout(() => {
+        copyEmailBtn.querySelector('span').textContent = '';
+        note.textContent = '';
+      }, 2200);
+    });
+
+    const backTop = document.getElementById('backTop');
+    window.addEventListener('scroll', () => {
+      backTop.classList.toggle('show', window.scrollY > 450);
+    });
+    backTop.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+
+    document.getElementById('contactForm').addEventListener('submit', event => {
+      event.preventDefault();
+      const name = document.getElementById('senderName').value.trim();
+      const email = document.getElementById('senderEmail').value.trim();
+      const message = document.getElementById('senderMessage').value.trim();
+      const recipient = 'thombreadi@gmail.com';
+      const subject = encodeURIComponent(`Portfolio enquiry from ${name}`);
+      const body = encodeURIComponent(`Name: ${name}\nEmail: ${email}\n\n${message}`);
+      window.location.href = `mailto:${recipient}?subject=${subject}&body=${body}`;
+    });
+  </script>
+</body>
+</html>
