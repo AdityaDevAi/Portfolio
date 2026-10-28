@@ -53,8 +53,15 @@
     .nav-links a { color: var(--muted); font-size: .92rem; transition: color .2s; }
     .nav-links a:hover { color: var(--accent); }
     .menu-btn { display: none; background: none; color: var(--text); border: 1px solid var(--border); padding: 8px 11px; border-radius: 9px; font-size: 1.1rem; }
-    .theme-btn { background: var(--surface); color: var(--text); border: 1px solid var(--border); padding: 9px 13px; border-radius: 9px; font: inherit; font-size: .9rem; font-weight: 700; cursor: pointer; white-space: nowrap; transition: transform .2s, background .2s; }
-    .theme-btn:hover { transform: translateY(-2px); }
+    .theme-switch { position: relative; display: inline-block; width: 55px; height: 28px; cursor: pointer; vertical-align: middle; }
+    .theme-switch input { position: absolute; opacity: 0; width: 1px; height: 1px; }
+    .theme-switch .slider { position: absolute; inset: 0; background: var(--surface-2); border: 1px solid var(--border); border-radius: 30px; transition: background .3s; }
+    .theme-switch .slider::before { content: ""; position: absolute; height: 20px; width: 20px; left: 3px; bottom: 3px; background: var(--accent); border-radius: 50%; transition: transform .3s; }
+    .theme-switch input:checked + .slider::before { transform: translateX(27px); }
+    .theme-switch .sun, .theme-switch .moon { position: absolute; top: 2px; font-size: 15px; line-height: 20px; pointer-events: none; }
+    .theme-switch .sun { right: 7px; }
+    .theme-switch .moon { left: 7px; }
+    .theme-switch input:focus-visible + .slider { outline: 2px solid var(--accent); outline-offset: 3px; }
     .hero { border-bottom: 1px solid var(--border); min-height: 560px; display: grid; grid-template-columns: 1.35fr .8fr; align-items: center; gap: 55px;}
     .eyebrow { color: var(--accent); text-transform: uppercase; letter-spacing: .16em; font-size: .78rem; font-weight: 750;}
     h1 { font-size: clamp(2.7rem, 6vw, 5rem); line-height: 1.06; letter-spacing: -.06em; margin: 18px 0; }
@@ -167,7 +174,15 @@
 		<li><a href="#experience">Experience</a></li>
         <li><a href="#projects">Projects</a></li>
         <li><a href="#contact">Contact</a></li>
-		<li><a href="#" id="themeBtn" aria-label="Switch to light theme">☀</a></li>
+		<li>
+			<label class="theme-switch" aria-label="Toggle light and dark theme">
+		        <input type="checkbox" id="themeToggle">
+		        <span class="slider">
+		            <span class="sun">☀</span>
+		            <span class="moon">☾</span>
+		        </span>
+		    </label>
+		</li>
       </ul>
     </nav>
   </header>
@@ -330,23 +345,20 @@
   <button class="back-top" id="backTop" aria-label="Back to top">↑</button>
 
   <script>
-    const themeBtn = document.getElementById('themeBtn');
+    const themeToggle = document.getElementById('themeToggle');
     const savedTheme = localStorage.getItem('portfolio-theme');
     const initialTheme = savedTheme === 'light' ? 'light' : 'dark';
 
     function applyTheme(theme) {
       document.documentElement.setAttribute('data-theme', theme);
-      const isLight = theme === 'light';
-      themeBtn.textContent = isLight ? '☾' : '☼';
-      themeBtn.setAttribute('aria-label', isLight ? 'Switch to dark theme' : 'Switch to light theme');
+      themeToggle.checked = theme === 'light';
       localStorage.setItem('portfolio-theme', theme);
     }
 
     applyTheme(initialTheme);
 
-    themeBtn.addEventListener('click', () => {
-      const currentTheme = document.documentElement.getAttribute('data-theme') || 'dark';
-      applyTheme(currentTheme === 'dark' ? 'light' : 'dark');
+    themeToggle.addEventListener('change', () => {
+      applyTheme(themeToggle.checked ? 'light' : 'dark');
     });
 
     const menuBtn = document.getElementById('menuBtn');
